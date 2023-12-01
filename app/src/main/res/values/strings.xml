@@ -2,4 +2,9 @@
     <string name="app_name">SafeGuard</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="map">Map</string>
+    <string name="report">Report</string>
+    <string name="info">Info</string>
+    <string name="profile">Profile</string>
+    <string name="sosbtn">SOSbtn</string>
 </resources>
