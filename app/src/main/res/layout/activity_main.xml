@@ -28,31 +28,31 @@
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:id="@+id/bottomNavigationView"
             android:background="@android:color/transparent"
             android:layout_marginEnd="5dp"
             app:labelVisibilityMode="labeled"
-            app:itemRippleColor="@color/md_theme_light_onPrimary"
             app:itemIconTint="@color/md_theme_light_onPrimary"
             app:itemTextColor="@color/md_theme_light_onPrimary"
-            app:itemTextAppearanceActiveBoldEnabled="true"
             app:menu="@menu/bottom_nav_menu" />
+
 
     </com.google.android.material.bottomappbar.BottomAppBar>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:foreground="@drawable/sos_ic"
-            android:foregroundGravity="center"
-            android:backgroundTint="#D66565"
-            app:fabCustomSize="70dp"
-            app:layout_anchor="@id/bottomAppBar"
-            app:backgroundTint="#EEB9B9"
-            app:shapeAppearance="@style/Widget.Material3.CircularProgressIndicator.Medium"
-            app:borderWidth="3dp"
-            app:elevation="0dp"
-            android:contentDescription="@string/sosbtn" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:foreground="@drawable/sos_ic"
+        android:foregroundGravity="center"
+        android:backgroundTint="#D66565"
+        app:fabCustomSize="70dp"
+        app:layout_anchor="@id/bottomAppBar"
+        app:backgroundTint="#EEB9B9"
+        app:shapeAppearance="@style/Widget.Material3.CircularProgressIndicator.Medium"
+        app:borderWidth="3dp"
+        app:elevation="0dp"
+        android:contentDescription="@string/sosbtn" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
