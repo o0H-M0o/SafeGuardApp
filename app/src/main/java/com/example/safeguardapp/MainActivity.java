@@ -17,9 +17,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         replaceFragment(new MapFragment());
-        binding.bottomAppBar.setBackground(null);
-        binding.bottomAppBar.setOnClickListener(item -> {
-            int itemId = item.getId();
+        binding.bottomNavigationView.setBackground(null);
+        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
             if (itemId == R.id.map) {
                 replaceFragment(new MapFragment());
             } else if (itemId == R.id.report) {
