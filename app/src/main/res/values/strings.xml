@@ -8,5 +8,18 @@
     <string name="report">Report</string>
     <string name="info">Info</string>
     <string name="profile">Profile</string>
-    <string name="sosbtn">SOSbtn</string>
+    <string name="sosbtn">sosbtn</string>
+    <string name="your_sos_signal_has_been_sent_to_police">Your SOS signal has been sent to Police !</string>
+    <string name="back">back</string>
+    <string name="call">call</string>
+    <string name="deco">deco</string>
+    <string name="sea_park_police_station">Sea Park Police Station</string>
+    <string name="date_and_time">Date and Time</string>
+    <string name="date_time">14 Nov 2023, 22:47 PM</string>
+    <string name="current_location">Current Location</string>
+    <string name="authorities_in_charge">Authorities In-charge</string>
+    <string name="authorities_will_reach_out_to_you_shortly">Authorities will reach out to you shortly.</string>
+    <string name="please_remain_in_a_safe_location">Please remain in a safe location.</string>
+    <string name="stay_on_the_line_if_possible">Stay on the line if possible.</string>
+    <string name="address">45, Jalan SS 2/93, SS 2, 47300 Petaling Jaya, Selangor, Malaysia</string>
 </resources>
