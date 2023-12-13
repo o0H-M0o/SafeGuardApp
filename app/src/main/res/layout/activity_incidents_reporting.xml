@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".IncidentsReporting">
+
+        <TextView
+            android:id="@+id/TVSubTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="18dp"
+            android:text="@string/report_violence_incident"
+            android:textSize="25sp"
+            app:layout_constraintStart_toEndOf="@+id/IVBack"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/TVSubType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="40dp"
+            android:text="@string/violence_incident_type"
+            android:textColor="#00689D"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TVSubTitle" />
+
+        <Spinner
+            android:id="@+id/SPType"
+            android:layout_width="256dp"
+            android:layout_height="54dp"
+            android:layout_marginStart="16dp"
+            android:padding="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:entries="@array/incident_types"
+            app:layout_constraintTop_toBottomOf="@+id/TVSubType" />
+
+        <TextView
+            android:id="@+id/TVSubDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/date"
+            android:textColor="#00689D"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/SPType" />
+
+        <EditText
+            android:id="@+id/ETDate"
+            android:layout_width="150dp"
+            android:layout_height="54dp"
+            android:layout_marginStart="16dp"
+            android:ems="10"
+            android:hint="@string/select_date"
+            android:inputType="date"
+            android:autofillHints="date"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TVSubDate" />
+
+        <EditText
+            android:id="@+id/ETTime"
+            android:layout_width="150dp"
+            android:layout_height="54dp"
+            android:layout_marginStart="45dp"
+            android:ems="10"
+            android:hint="@string/select_time"
+            android:inputType="time"
+            android:autofillHints="time"
+            app:layout_constraintStart_toEndOf="@+id/ETDate"
+            app:layout_constraintTop_toBottomOf="@+id/TVSubDate" />
+
+        <TextView
+            android:id="@+id/TVSubTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="152dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/time"
+            android:textColor="#00689D"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/TVSubDate"
+            app:layout_constraintTop_toBottomOf="@+id/SPType" />
+
+        <TextView
+            android:id="@+id/TVSubLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/location"
+            android:textColor="#00689D"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ETDate" />
+
+        <EditText
+            android:id="@+id/ETLocation"
+            android:layout_width="256dp"
+            android:layout_height="54dp"
+            android:layout_marginStart="16dp"
+            android:hint="@string/select_location"
+            android:ems="10"
+            android:inputType="textPostalAddress"
+            android:autofillHints="location"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TVSubLocation" />
+
+        <TextView
+            android:id="@+id/TVSubImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="27dp"
+            android:text="@string/image"
+            android:textColor="#00689D"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ETLocation" />
+
+        <ImageView
+            android:id="@+id/IVSubProof"
+            android:layout_width="359dp"
+            android:layout_height="123dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:contentDescription="@string/image_proof"
+            app:layout_constraintTop_toBottomOf="@+id/TVSubImage"
+            app:srcCompat="@drawable/upload_photo" />
+
+        <TextView
+            android:id="@+id/TVSubDes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/describe_the_incident"
+            android:textColor="#00689D"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/IVSubProof" />
+
+        <EditText
+            android:id="@+id/ETDes"
+            android:layout_width="354dp"
+            android:layout_height="63dp"
+            android:layout_marginStart="16dp"
+            android:ems="10"
+            android:inputType="text"
+            android:hint="@string/briefly_describe_the_incident"
+            android:textSize="20sp"
+            android:autofillHints="description"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TVSubDes" />
+
+        <Button
+            android:id="@+id/BTSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="124dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/submit"
+            android:backgroundTint="@color/md_theme_light_primary"
+            android:textSize="25sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ETDes" />
+
+        <ImageView
+            android:id="@+id/IVBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="25dp"
+            android:src="@drawable/baseline_arrow_back_ios_new_24"
+            android:contentDescription="@string/back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

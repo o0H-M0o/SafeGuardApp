@@ -22,4 +22,31 @@
     <string name="please_remain_in_a_safe_location">Please remain in a safe location.</string>
     <string name="stay_on_the_line_if_possible">Stay on the line if possible.</string>
     <string name="address">45, Jalan SS 2/93, SS 2, 47300 Petaling Jaya, Selangor, Malaysia</string>
+    <string name="select_date">Select date</string>
+    <string name="report_violence_incident">Report Violence Incident</string>
+    <string name="violence_incident_type">Violence Incident Type</string>
+    <string name="date">Date</string>
+    <string name="select_time">Select time</string>
+    <string name="time">Time</string>
+    <string name="location">Location</string>
+    <string name="select_location">Select location</string>
+    <string name="image">Image</string>
+    <string name="describe_the_incident">Describe The Incident</string>
+    <string name="briefly_describe_the_incident">Briefly describe the incident</string>
+    <string name="submit">Submit</string>
+    <string name="image_proof">image proof</string>
+    <string name="incident_reporting">Incident Reporting</string>
+    <string name="incident_details">Incident Details</string>
+    <string name="type">Type</string>
+    <string name="description_of_incident">Description of Incident</string>
+    <string name="description">Description</string>
+    <string name="tracking_report">tracking report</string>
+    <string name="authorities">\n</string>
+    <string name="make_report">make report</string>
+    <string-array name="incident_types">
+        <item>Physical Violence</item>
+        <item>Domestic Violence</item>
+        <item>Sexual Violence</item>
+        <item>Others</item>
+    </string-array>
 </resources>

@@ -1,14 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ReportFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Report" />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="411dp"
+        android:layout_height="351dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-</FrameLayout>
+        <FrameLayout
+            android:id="@+id/BlueBlock"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/md_theme_light_primary">
+
+            <TextView
+                android:id="@+id/TVTitleIR"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/incident_reporting"
+                android:textColor="#ffffff"
+                android:textSize="25sp"
+                android:translationX="100dp"
+                android:translationY="10dp" />
+
+            <ImageView
+                android:id="@+id/IVMReport"
+                android:layout_width="300dp"
+                android:layout_height="150dp"
+                android:src="@drawable/make_report"
+                android:contentDescription="@string/make_report"
+                android:translationX="50dp"
+                android:translationY="50dp" />
+
+            <ImageView
+                android:id="@+id/IVTReport"
+                android:layout_width="300dp"
+                android:layout_height="150dp"
+                android:src="@drawable/tracking_report"
+                android:contentDescription="@string/tracking_report"
+                android:translationX="50dp"
+                android:translationY="180dp" />
+
+        </FrameLayout>
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/IVAuthorities"
+        android:layout_width="364dp"
+        android:layout_height="279dp"
+        android:layout_marginStart="23dp"
+        android:src="@drawable/authorities"
+        android:contentDescription="@string/authorities"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+</androidx.constraintlayout.widget.ConstraintLayout>
