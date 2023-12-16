@@ -38,4 +38,13 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
     }
+
+    private void onBackPressedFromActivity() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        if (fragmentManager.getBackStackEntryCount() > 0) {
+            fragmentManager.popBackStack(); // Go back to the previous fragment
+        } else {
+            super.onBackPressed(); // If no fragments in the back stack, perform default back action
+        }
+    }
 }

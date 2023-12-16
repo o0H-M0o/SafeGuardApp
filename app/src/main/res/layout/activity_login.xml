@@ -37,8 +37,8 @@
             android:padding="15dp">
 
             <ImageView
-                android:layout_width="210dp"
-                android:layout_height="167dp"
+                android:layout_width="151dp"
+                android:layout_height="134dp"
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/safe_guard_icon" />
 

@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,7 +34,8 @@ public class IncidentsReporting extends AppCompatActivity {
 
     private Spinner spType;
     private EditText etDate, etTime, etLocation, etDescription;
-    private ImageView ivSubProof;
+    private ImageView ivSubProof, IVBack;
+    private Button btSubmit;
 
     private DatabaseReference databaseReference;
     private StorageReference storageReference;
@@ -48,8 +50,9 @@ public class IncidentsReporting extends AppCompatActivity {
         etTime = findViewById(R.id.ETTime);
         etLocation = findViewById(R.id.ETLocation);
         etDescription = findViewById(R.id.ETDes);
-        Button btSubmit = findViewById(R.id.BTSubmit);
+        btSubmit = findViewById(R.id.BTSubmit);
         ivSubProof = findViewById(R.id.IVSubProof);
+        IVBack = findViewById(R.id.IVBack);
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -76,6 +79,13 @@ public class IncidentsReporting extends AppCompatActivity {
 
         // Set a click listener for the time EditText to show a time picker dialog
         etTime.setOnClickListener(v -> showTimePickerDialog());
+
+        IVBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         btSubmit.setOnClickListener(v -> {
             try {

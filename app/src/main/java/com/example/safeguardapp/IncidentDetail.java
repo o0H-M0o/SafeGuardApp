@@ -2,6 +2,7 @@ package com.example.safeguardapp;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -19,7 +20,7 @@ public class IncidentDetail extends AppCompatActivity {
 
     //private DatabaseReference databaseReference;
     private TextView tvType, tvDate, tvTime, tvLocation, tvDescription;
-    private ImageView ivProof;
+    private ImageView ivProof, ivBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +34,17 @@ public class IncidentDetail extends AppCompatActivity {
         tvLocation = findViewById(R.id.TVLocation);
         tvDescription = findViewById(R.id.TVDes);
         ivProof = findViewById(R.id.IVProof);
+        ivBack = findViewById(R.id.IVBack);
 
         // Call the method to pass user data and retrieve incident details
         passUserData();
+
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     public void passUserData() {
