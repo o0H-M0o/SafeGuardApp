@@ -34,7 +34,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
@@ -144,7 +143,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 if (dataSnapshot.exists()) {
                     // Loop through the result, assuming there is only one incident for a given location
                     for (DataSnapshot incidentSnapshot : dataSnapshot.getChildren()) {
-                        // Extract incident details
+                        // Extract incident details in the correct order
                         String type = incidentSnapshot.child("type").getValue(String.class);
                         String date = incidentSnapshot.child("date").getValue(String.class);
                         String time = incidentSnapshot.child("time").getValue(String.class);
@@ -152,7 +151,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                         String description = incidentSnapshot.child("description").getValue(String.class);
 
                         // Create an Incident object
-                        Incident incident = new Incident(type, location, date, time, photoData,description);
+                        Incident incident = new Incident(type, date, time, location, photoData, description);
 
                         // Show the incident details dialog
                         IncidentDetailsDialog.show(requireContext(), incident, location);

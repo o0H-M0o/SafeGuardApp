@@ -49,10 +49,15 @@ public class IncidentDetailsDialog {
         TextView tvTime = view.findViewById(R.id.TVTime);
 
         // Set incident details
-        Picasso.get().load(incident.getPhotoData()).into(ivPhoto); // Assuming incident.getPhotoData() contains the image URL
+
         tvType.setText("Type: " + incident.getType());
         tvLocation.setText("Location: " + incident.getLocation());
         tvDate.setText("Date: " + incident.getDate());
         tvTime.setText("Time: " + incident.getTime());
+
+        // Load the image using Picasso or any other image-loading library
+        if (incident.getPhotoData() != null && !incident.getPhotoData().isEmpty()) {
+            Picasso.get().load(incident.getPhotoData()).into(ivPhoto);
+        }
     }
 }
