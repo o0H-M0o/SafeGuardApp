@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SosActivatedFragment">
+    tools:context=".SosActivatedActivity">
 
     <ImageView
         android:id="@+id/iv_police"
@@ -88,7 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginBottom="12dp"
-        android:text="@string/authorities_in_charge"
+        android:text="@string/direct_call_to_police"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/tv_authorities"
         app:layout_constraintStart_toStartOf="parent" />
@@ -102,7 +102,7 @@
         android:layout_marginStart="60dp"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="60dp"
-        android:text="@string/address"
+        android:text="@string/locating"
         app:layout_constraintBottom_toTopOf="@+id/tv_detail2"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -122,7 +122,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginBottom="168dp"
-        android:text="@string/sea_park_police_station"
+        android:text="@string/press_if_needed"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

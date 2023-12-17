@@ -13,7 +13,6 @@
     <string name="back">back</string>
     <string name="call">call</string>
     <string name="deco">deco</string>
-    <string name="sea_park_police_station">Sea Park Police Station</string>
     <string name="date_and_time">Date and Time</string>
     <string name="date_time">14 Nov 2023, 22:47 PM</string>
     <string name="current_location">Current Location</string>
@@ -43,6 +42,9 @@
     <string name="tracking_report">tracking report</string>
     <string name="authorities">\n</string>
     <string name="make_report">make report</string>
+    <string name="press_if_needed">press if needed</string>
+    <string name="direct_call_to_police">Direct Call to Police</string>
+    <string name="locating">Locating…</string>
     <string-array name="incident_types">
         <item>Physical Violence</item>
         <item>Domestic Violence</item>
