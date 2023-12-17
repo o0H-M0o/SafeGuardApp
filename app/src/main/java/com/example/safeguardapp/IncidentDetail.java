@@ -1,24 +1,24 @@
 package com.example.safeguardapp;
 
+import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 public class IncidentDetail extends AppCompatActivity {
 
-    //private DatabaseReference databaseReference;
     private TextView tvType, tvDate, tvTime, tvLocation, tvDescription;
     private ImageView ivProof, ivBack;
 
@@ -36,27 +36,29 @@ public class IncidentDetail extends AppCompatActivity {
         ivProof = findViewById(R.id.IVProof);
         ivBack = findViewById(R.id.IVBack);
 
-        // Call the method to pass user data and retrieve incident details
-        passUserData();
+        // Call the method to retrieve incident details based on location
+        retrieveIncidentDetails();
 
+        // Set up a click listener for the back button
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBackPressed();
+                // Finish the activity and go back
+                finish();
             }
         });
     }
 
-    public void passUserData() {
-        // Get the incidentId passed from the previous activity
-        String incidentId = getIntent().getStringExtra("incidentId");
+    private void retrieveIncidentDetails() {
+        // Get the location passed from the previous activity
+        String location = getIntent().getStringExtra("location");
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Incidents");
 
-        // Create a query to find the incident with the specified incidentId
-        Query checkUserDatabase = reference.orderByChild("incidentId").equalTo(incidentId);
+        // Create a query to find the incident with the specified location
+        Query checkLocation = reference.orderByChild("location").equalTo(location);
 
-        checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+        checkLocation.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
@@ -66,7 +68,6 @@ public class IncidentDetail extends AppCompatActivity {
                         String type = incidentSnapshot.child("type").getValue(String.class);
                         String date = incidentSnapshot.child("date").getValue(String.class);
                         String time = incidentSnapshot.child("time").getValue(String.class);
-                        String location = incidentSnapshot.child("location").getValue(String.class);
                         String imageUrl = incidentSnapshot.child("photoData").getValue(String.class); // Retrieve image URL
                         String description = incidentSnapshot.child("description").getValue(String.class);
 
@@ -79,35 +80,17 @@ public class IncidentDetail extends AppCompatActivity {
 
                         // Load the image using Picasso or any other image-loading library
                         if (imageUrl != null && !imageUrl.isEmpty()) {
-                            Log.d("IncidentActivity", "Image URL: " + imageUrl);
-
-                            Picasso.get()
-                                    .load(imageUrl)
-                                    .into(ivProof, new Callback() {
-                                        @Override
-                                        public void onSuccess() {
-                                            Log.d("IncidentActivity", "Image loaded successfully");
-                                        }
-
-                                        @Override
-                                        public void onError(Exception e) {
-                                            // Log error or set an error image
-                                            Log.e("IncidentActivity", "Error loading image: " + e.getMessage(), e);
-                                        }
-                                    });
-                        } else {
-                            Log.e("IncidentActivity", "Image URL is null or empty");
+                            Picasso.get().load(imageUrl).into(ivProof);
                         }
                     }
                 } else {
-                    Log.e("IncidentActivity", "No matching incident found");
+                    // Handle the case where no matching incident is found for the location
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 // Handle errors
-                Log.e("IncidentActivity", "Database Error: " + error.getMessage(), error.toException());
             }
         });
     }
