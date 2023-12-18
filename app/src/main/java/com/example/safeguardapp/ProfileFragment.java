@@ -22,21 +22,39 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ProfileFragment extends Fragment {
 
-    private Button logoutBtn,adminBtn,authBtn;
-    private TextView userTV;
+    private Button adminBtn,authBtn;
+    private TextView userTV, emergencyContactList, logoutBtn;
     private DatabaseReference userRef;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_profile, container, false);
 
-        // Find the logout button
         logoutBtn = view.findViewById(R.id.logoutBtn);
+        emergencyContactList = view.findViewById(R.id.emergencyContactList);
+
+        emergencyContactList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), EmergencyContactListActivity.class);
+                startActivity(intent);
+            }
+        });
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+
+                Intent intent = new Intent(getActivity(), LoginSignupActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
+
+        //Just for DEMO
         adminBtn = view.findViewById(R.id.adminBtn);
         authBtn = view.findViewById(R.id.authBtn);
-        userTV = view.findViewById(R.id.userTV);
 
         adminBtn.setVisibility(View.GONE);
         authBtn.setVisibility(View.GONE);
@@ -71,17 +89,8 @@ public class ProfileFragment extends Fragment {
                 }
             });
         }
-        logoutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
 
-                Intent intent = new Intent(getActivity(), LoginSignupActivity.class);
-                startActivity(intent);
-                getActivity().finish();
-            }
-        });
-
+        //Just for DEMO
         authBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

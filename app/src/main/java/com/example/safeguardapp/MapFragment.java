@@ -1,6 +1,7 @@
 package com.example.safeguardapp;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -10,8 +11,10 @@ import android.Manifest;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,35 +32,73 @@ import com.google.android.gms.maps.model.*;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
     private DatabaseReference databaseReference;
-
+    private DatabaseReference userContactsReference;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser firebaseUser;
     private final int FINE_PERMISSION_CODE = 1;
+    private static final int PERMISSION_REQUEST_SEND_SMS = 2;
     private GoogleMap myMap;
     private SearchView mapSearchView;
+    private FloatingActionButton sendLocationBtn;
+    private EmergencyContactAdapter contactAdapter;
     Location currentLocation;
     FusedLocationProviderClient fusedLocationProviderClient;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         databaseReference = FirebaseDatabase.getInstance().getReference("Incidents");
-
         View view = inflater.inflate(R.layout.fragment_map, container, false);
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity());
         getLastLocation();
 
         mapSearchView = view.findViewById(R.id.mapSearch);
+        sendLocationBtn = view.findViewById(R.id.sendLocationBtn);
+        contactAdapter = new EmergencyContactAdapter(requireContext(), new ArrayList<>());
+        List<String> contactList = contactAdapter.getContactNumbers();
+        sendLocationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new MaterialAlertDialogBuilder(requireContext())
+                        .setTitle("Send Location")
+                        .setMessage("Are you sure want to send current location to your Emergency Contacts?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Proceed to send location
+                                sendLocationToContacts(contactList);
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Do nothing or handle cancellation
+                            }
+                        })
+                        .show();
+            }
+        });
+
+
+
         mapSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -93,6 +134,47 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         return view;
     }
 
+    private void sendLocationToContacts(List<String> contactList) {
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Request Location permission
+            ActivityCompat.requestPermissions(requireActivity(),
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, FINE_PERMISSION_CODE);
+            return;
+        }
+
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.SEND_SMS)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(requireActivity(),
+                    new String[]{Manifest.permission.SEND_SMS}, PERMISSION_REQUEST_SEND_SMS);
+            return;
+        }
+        if (contactList.isEmpty()) {
+            Toast.makeText(getActivity(), "No contacts available. Add emergency contacts in Profile", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        fusedLocationProviderClient.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if (location != null) {
+                    // Create the SMS message
+                    SmsManager smsManager = SmsManager.getDefault();
+                    String message = "SOS, I am in DANGER. I need help urgently. Here are my coordinates:\n" +
+                            "http://maps.google.com/?q=" + location.getLatitude() + "," + location.getLongitude();
+
+                    // Send the SMS to all contacts
+                    for (String phoneNumber : contactList) {
+                        smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+                    }
+
+                    Toast.makeText(getActivity(), "Location sent to all contacts", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "Unable to fetch location", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
     private void addHotspotMarkers() {
         // Fetch hotspots from Firebase
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {

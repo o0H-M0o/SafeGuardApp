@@ -19,6 +19,7 @@
             android:layout_marginTop="18dp"
             android:text="@string/report_violence_incident"
             android:textSize="25sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/IVBack"
             app:layout_constraintTop_toTopOf="parent" />
 
