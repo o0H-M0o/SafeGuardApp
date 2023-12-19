@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UpdateProfileActivity">
+
+  <TextView
+      android:id="@+id/editProfileTitle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="20dp"
+      android:text="Edit Profile Details"
+      android:textSize="25sp"
+      android:textStyle="bold"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <androidx.cardview.widget.CardView
+      android:id="@+id/cardViewEditProfile"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="30dp"
+      app:cardCornerRadius="30dp"
+      app:cardElevation="20dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/editProfileTitle">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/custom_edittext"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+      <androidx.cardview.widget.CardView
+          android:id="@+id/CVEditProfilePic"
+          android:layout_width="100dp"
+          android:layout_height="100dp"
+          android:layout_gravity="center_horizontal"
+          app:cardCornerRadius="100dp">
+
+        <ImageView
+            android:id="@+id/uploadEditPic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Profile Picture"
+            app:srcCompat="@drawable/blank_profile_pic" />
+
+      </androidx.cardview.widget.CardView>
+
+      <TextView
+          android:id="@+id/TVUploadProPic"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="5dp"
+          android:text="Upload profile picture"
+          android:textAlignment="center"
+          android:textSize="18sp" />
+
+      <EditText
+          android:id="@+id/editProfileUsername"
+          android:layout_width="match_parent"
+          android:layout_height="60dp"
+          android:layout_marginTop="20dp"
+          android:background="@drawable/custom_edittext"
+          android:drawableLeft="@drawable/baseline_person_24"
+          android:drawablePadding="8dp"
+          android:drawableTint="@color/md_theme_light_primary"
+          android:hint="Username"
+          android:padding="20dp"
+          android:textColor="@color/black" />
+
+      <EditText
+          android:id="@+id/editContactNum"
+          android:layout_width="match_parent"
+          android:layout_height="60dp"
+          android:layout_marginTop="15dp"
+          android:background="@drawable/custom_edittext"
+          android:drawableLeft="@drawable/baseline_call_24"
+          android:drawablePadding="8dp"
+          android:hint="Contact Number"
+          android:inputType="phone"
+          android:padding="20dp"
+          android:textColor="@color/black" />
+
+      <EditText
+          android:id="@+id/editDoB"
+          android:layout_width="match_parent"
+          android:layout_height="60dp"
+          android:layout_marginTop="15dp"
+          android:background="@drawable/custom_edittext"
+          android:drawableLeft="@drawable/baseline_calendar_month_24"
+          android:drawablePadding="8dp"
+          android:hint="Date of Birth"
+          android:inputType="date"
+          android:padding="20dp"
+          android:textColor="@color/black" />
+
+      <RelativeLayout
+          android:id="@+id/relativeLayoutGender"
+          android:layout_width="match_parent"
+          android:layout_height="60dp"
+          android:layout_marginTop="15dp"
+          android:background="@drawable/custom_edittext">
+
+        <ImageView
+            android:id="@+id/genderIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/baseline_tag_faces_24"/>
+
+        <Spinner
+            android:id="@+id/editGender"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@id/genderIcon"
+            android:layout_alignParentEnd="true"
+            android:background="@android:color/transparent"
+            android:entries="@array/genderAry"
+            android:spinnerMode="dropdown"/>
+      </RelativeLayout>
+
+      <Button
+          android:id="@+id/updateProfileBtn"
+          android:layout_width="match_parent"
+          android:layout_height="60dp"
+          android:layout_marginTop="20dp"
+          android:text="Update Profile"
+          android:textSize="18dp"
+          app:cornerRadius="20dp" />
+
+      <Button
+          android:id="@+id/cancelUpdateBtn"
+          android:layout_width="match_parent"
+          android:layout_height="60dp"
+          android:backgroundTint="@color/md_theme_light_secondary"
+          android:text="Cancel"
+          android:textColor="@color/md_theme_light_onSecondary"
+          android:textSize="18dp"
+          app:cornerRadius="20dp" />
+
+      <ProgressBar
+          android:id="@+id/progressBar"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:elevation="10dp"
+          android:visibility="gone" />
+
+    </LinearLayout>
+  </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

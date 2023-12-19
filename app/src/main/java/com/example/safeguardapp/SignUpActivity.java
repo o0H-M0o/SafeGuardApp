@@ -36,7 +36,6 @@ public class SignUpActivity extends AppCompatActivity {
     private ImageView backLoginSignup;
     private EditText editUsername, editEmail, editPassword, editConfirmPassword;
     private Button signupBtn;
-    private FirebaseAuth mAuth;
     private ProgressBar progressBar;
     private static final String TAG = "SignUpActivity";
 
@@ -68,7 +67,7 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
 
-                String username, email, password, confirmPassword, role;
+                String username, email, password, confirmPassword;
                 username = editUsername.getText().toString();
                 email = editEmail.getText().toString();
                 password = editPassword.getText().toString();
@@ -127,7 +126,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                     Map<String, Object> userMap = new HashMap<>();
                     userMap.put("username", username);
-                    userMap.put("role", "user");
+                    userMap.put("role", "User");
 
                     DatabaseReference dbProfileReference = FirebaseDatabase.getInstance().getReference("Registered Users");
 
