@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- activity_admin_update.xml -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".AdminUpdateActivity">
+
+    <!-- Title at the top -->
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Update Progress"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:padding="16dp"
+        android:gravity="center"
+        android:textColor="@android:color/black"/>
+
+    <!-- ImageButton at the top left corner -->
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_arrow_back_ios_new_24"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="16dp"
+        android:background="@android:color/transparent"/>
+
+    <!-- Update Status TextView -->
+    <TextView
+        android:id="@+id/updateStatusTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update Status"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_below="@id/backButton"
+        android:layout_marginTop="16dp"
+        android:textColor="@android:color/black"/>
+
+    <!-- Status Spinner -->
+    <Spinner
+        android:id="@+id/statusSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/updateStatusTextView"
+        android:layout_marginTop="8dp"
+        android:entries="@array/status_options"
+        android:prompt="@string/select_status_prompt"/>
+
+    <!-- Add Details TextView -->
+    <TextView
+        android:id="@+id/addDetailsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Details"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_below="@id/statusSpinner"
+        android:layout_marginTop="16dp"
+        android:textColor="@android:color/black"/>
+
+    <!-- Details EditText -->
+    <EditText
+        android:id="@+id/detailsEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter details"
+        android:layout_below="@id/addDetailsTextView"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Submit Button -->
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/detailsEditText"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="18dp"
+        android:text="Save Changes"
+        android:textSize="18sp"/>
+
+
+
+</RelativeLayout>
+
+
+
+

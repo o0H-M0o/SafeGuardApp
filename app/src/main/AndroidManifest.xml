@@ -82,6 +82,31 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_api_key" />
+
+        <activity
+            android:name=".MainActivityForTracking"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ChooseIncidentActivity">
+        </activity>
+
+        <activity android:name=".AdminUpdateActivity">
+        </activity>
+
+        <activity android:name=".Incidents">
+
+        </activity>
+        <activity android:name=".IncidentsDetail">
+
+        </activity>
+
+        <activity android:name=".CustomAdapter">
+        </activity>
     </application>
+
 
 </manifest>

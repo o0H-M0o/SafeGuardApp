@@ -18,11 +18,20 @@ public class ReportFragment extends Fragment {
 
         ImageView ivMakeReport = view.findViewById(R.id.IVMReport);
         ivMakeReport.setOnClickListener(v -> openIncidentReporting());
+
+        ImageView ivTrackingReport = view.findViewById(R.id.IVTReport);
+        ivTrackingReport.setOnClickListener(v -> openReportList());
+
         return view;
     }
 
     private void openIncidentReporting() {
         Intent intent = new Intent(getActivity(), IncidentsReporting.class);
+        startActivity(intent);
+    }
+
+    private void openReportList() {
+        Intent intent = new Intent(getActivity(), MainActivityForTracking.class);
         startActivity(intent);
     }
 }

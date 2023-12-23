@@ -45,6 +45,12 @@
     <string name="press_if_needed">press if needed</string>
     <string name="direct_call_to_police">Direct Call to Police</string>
     <string name="locating">Locating…</string>
+    <string name="select_status_prompt">Select Status</string>
+    <string-array name="status_options">
+        <item>Submitted</item>
+        <item>Received by Authority</item>
+        <item>Settled</item>
+    </string-array>
 
     <string-array name="incident_types">
         <item>Physical Violence</item>
