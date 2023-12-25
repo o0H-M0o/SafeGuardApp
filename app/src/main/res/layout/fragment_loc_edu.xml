@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <TextView
+        android:id="@+id/localOrganizationTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:text="Local Organization"
+        android:textColor="@color/md_theme_light_primary"
+        android:textSize="20sp" />
+
+    <ImageView
+        android:id="@+id/localOrganizationSearchImageView"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_below="@id/localOrganizationTextView"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="-22dp"
+        android:layout_toEndOf="@+id/localOrganizationTextView"
+        android:contentDescription="Local Organization Search"
+        android:src="@drawable/search" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/horizontalRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/localOrganizationTextView"
+        android:layout_marginTop="13dp"
+        android:scrollbars="horizontal" />
+
+    <TextView
+        android:id="@+id/educationalResourcesTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/horizontalRecyclerView"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:text="Educational Resources"
+        android:textColor="@color/md_theme_light_primary"
+        android:textSize="20sp" />
+
+    <ImageView
+        android:id="@+id/educationalResourcesSearchImageView"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_below="@id/educationalResourcesTextView"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="-22dp"
+        android:layout_toEndOf="@+id/educationalResourcesTextView"
+        android:contentDescription="Educational Resources Search"
+        android:src="@drawable/search" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/verticalRecyclerView"
+        android:layout_below="@id/educationalResourcesTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+        android:layout_marginTop="15dp"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="110dp"
+        android:backgroundTint="@color/md_theme_light_primary"
+        android:contentDescription="Add Item"
+        android:src="@drawable/baseline_add_24"
+        app:tint="@color/md_theme_light_onPrimary" />
+
+</RelativeLayout>

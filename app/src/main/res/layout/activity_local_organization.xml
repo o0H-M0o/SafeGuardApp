@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LocalOrganizationActivity">
+
+    <ImageView
+        android:id="@+id/IVBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
+        android:contentDescription="@string/back"
+        android:src="@drawable/baseline_arrow_back_ios_new_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/TVTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="18dp"
+        android:text="LocalOrganization"
+        android:textSize="25sp"
+        android:textColor="@color/md_theme_light_primary"
+        app:layout_constraintStart_toEndOf="@+id/IVBack"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/localOrganizationSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/border"
+        android:focusable="false"
+        app:closeIcon="@drawable/baseline_close_24"
+        app:iconifiedByDefault="false"
+        app:queryHint="Search..."
+        app:searchHintIcon="@null"
+        app:searchIcon="@drawable/baseline_search_24" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/localOrganizationRecyclerView"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/localOrganizationSearch"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"/>
+
+</RelativeLayout>
