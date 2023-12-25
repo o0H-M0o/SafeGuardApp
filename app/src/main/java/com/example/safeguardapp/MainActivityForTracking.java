@@ -5,15 +5,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.Toast;
-import android.widget.AdapterView;
-
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,7 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.io.Serializable;
+
 public class MainActivityForTracking extends AppCompatActivity {
 
     private FirebaseDatabase firebaseDatabase;
@@ -62,6 +59,24 @@ public class MainActivityForTracking extends AppCompatActivity {
 
         setupRecyclerView();
         getdata();
+
+        // Set item click listener to open ReportDetailsActivity with selected incident details
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Incidents selectedIncident = adapter.incidentList.get(position); // Use the incidentList to get the selected incident
+
+                Intent intent = new Intent(MainActivityForTracking.this, ReportDetailsActivity.class);
+                intent.putExtra("incidentId", selectedIncident.getIncidentId());
+                startActivity(intent);
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+                // Handle long item click if needed
+            }
+        }));
+
     }
 
     private void setupRecyclerView() {
@@ -112,5 +127,3 @@ public class MainActivityForTracking extends AppCompatActivity {
         });
     }
 }
-
-

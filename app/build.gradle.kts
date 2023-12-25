@@ -31,6 +31,7 @@ android {
         dataBinding = true
         viewBinding = true
     }
+
 }
 
 dependencies {
@@ -52,4 +53,9 @@ dependencies {
 
     implementation ("com.squareup.picasso:picasso:2.71828")
     implementation ("androidx.recyclerview:recyclerview:1.2.1")
+    implementation ("com.github.clans:fab:1.6.4")
+    implementation ("com.github.bumptech.glide:glide:4.14.2")
+    implementation ("androidx.cardview:cardview:1.0.0")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.14.2")
+
 }

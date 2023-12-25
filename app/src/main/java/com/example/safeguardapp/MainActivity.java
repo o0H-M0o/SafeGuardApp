@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
             } else if (itemId == R.id.report) {
                 replaceFragment(new ReportFragment());
             } else if (itemId == R.id.moreInfo) {
-                replaceFragment(new MoreInfoFragment());
+                replaceFragment(new LocEduFragment());
             } else if (itemId == R.id.profile) {
                 replaceFragment(new ProfileFragment());
             }

@@ -27,10 +27,11 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
+// CustomAdapter.java
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
 
     private Context context;
-    private List<Incidents> incidentList;  // Declare incidentList
+    protected List<Incidents> incidentList;  // Declare incidentList
 
     public CustomAdapter(Context context, List<Incidents> incidents) {
         this.context = context;
@@ -73,14 +74,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         }
 
         public void bind(Incidents incident) {
-            textTime.setText("Time of Report: " + incident.getTime() + " " + incident.getDate());
+            textTime.setText("Time: " + incident.getTime());
+            textDate.setText("Date: " + incident.getDate());
             statusTextView.setText("Status: " + incident.getStatus());
         }
     }
 }
-
-
-
-
-
-
