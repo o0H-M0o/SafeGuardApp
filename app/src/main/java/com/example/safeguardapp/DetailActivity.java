@@ -24,6 +24,7 @@ public class DetailActivity extends AppCompatActivity {
     FloatingActionButton deleteButton, editButton;
     String key = "";
     String imageUrl = "";
+    String path = "";
     private ImageView ivBack;
 
     @Override
@@ -51,12 +52,13 @@ public class DetailActivity extends AppCompatActivity {
             detailTitle.setText(bundle.getString("Title"));
             key = bundle.getString("Key");
             imageUrl = bundle.getString("Image");
+            path = bundle.getString("Path");
             Glide.with(this).load(bundle.getString("Image")).into(detailImage);
         }
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Android Tutorials");
+                final DatabaseReference reference = FirebaseDatabase.getInstance().getReference(path);
                 FirebaseStorage storage = FirebaseStorage.getInstance();
 
                 StorageReference storageReference = storage.getReferenceFromUrl(imageUrl);
@@ -65,8 +67,7 @@ public class DetailActivity extends AppCompatActivity {
                     public void onSuccess(Void unused) {
                         reference.child(key).removeValue();
                         Toast.makeText(DetailActivity.this, "Deleted", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        finish();
+                        onBackPressed();
                     }
                 });
             }
@@ -78,8 +79,10 @@ public class DetailActivity extends AppCompatActivity {
                         .putExtra("Title", detailTitle.getText().toString())
                         .putExtra("Description", detailDesc.getText().toString())
                         .putExtra("Image", imageUrl)
-                        .putExtra("Key", key);
+                        .putExtra("Key", key)
+                        .putExtra("Path", path);
                 startActivity(intent);
+                finish();
             }
         });
     }

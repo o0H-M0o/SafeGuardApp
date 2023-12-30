@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,7 +37,7 @@ public class UpdateActivity extends AppCompatActivity {
     EditText updateDesc, updateTitle;
     String title, desc;
     String imageUrl;
-    String key, oldImageURL;
+    String key, oldImageURL, path;
     Uri uri;
     DatabaseReference databaseReference;
     StorageReference storageReference;
@@ -80,9 +81,10 @@ public class UpdateActivity extends AppCompatActivity {
             updateTitle.setText(bundle.getString("Title"));
             updateDesc.setText(bundle.getString("Description"));
             key = bundle.getString("Key");
+            path = bundle.getString("Path");
             oldImageURL = bundle.getString("Image");
         }
-        databaseReference = FirebaseDatabase.getInstance().getReference("Android Tutorials").child(key);
+        databaseReference = FirebaseDatabase.getInstance().getReference(path).child(key);
 
         updateImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,13 +98,28 @@ public class UpdateActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 saveData();
-                Intent intent = new Intent(UpdateActivity.this, MainActivity.class);
-                startActivity(intent);
             }
         });
     }
     public void saveData(){
-        storageReference = FirebaseStorage.getInstance().getReference().child("Android Images").child(uri.getLastPathSegment());
+        if (uri == null) {
+            Toast.makeText(UpdateActivity.this, "Please select an image", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (TextUtils.isEmpty(updateTitle.getText().toString().trim())) {
+            updateTitle.setError("Title is required");
+            updateTitle.requestFocus();
+            return;
+        }
+
+        if (TextUtils.isEmpty(updateDesc.getText().toString().trim())) {
+            updateDesc.setError("Description is required");
+            updateDesc.requestFocus();
+            return;
+        }
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(path +" Images")
+                .child(uri.getLastPathSegment());
 
         AlertDialog.Builder builder = new AlertDialog.Builder(UpdateActivity.this);
         builder.setCancelable(false);
@@ -131,7 +148,7 @@ public class UpdateActivity extends AppCompatActivity {
         title = updateTitle.getText().toString().trim();
         desc = updateDesc.getText().toString().trim();
 
-        DataClass dataClass = new DataClass(title, desc, imageUrl);
+        DataClass dataClass = new DataClass(title, desc, imageUrl, path);
 
         databaseReference.setValue(dataClass).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -149,5 +166,6 @@ public class UpdateActivity extends AppCompatActivity {
                 Toast.makeText(UpdateActivity.this, e.getMessage().toString(), Toast.LENGTH_SHORT).show();
             }
         });
+        onBackPressed();
     }
 }

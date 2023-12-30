@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,11 +31,12 @@ import androidx.appcompat.app.AlertDialog;  // Add this import
 public class LocEduFragment extends Fragment {
 
     FloatingActionButton fab;
-    DatabaseReference databaseReferenceLoc, databaseReferenceEdu;
+    DatabaseReference databaseReferenceLoc, databaseReferenceEdu, userRef;
     ValueEventListener eventListenerLoc, eventListenerEdu;
     RecyclerView horizontalRecyclerViewLocalOrg, verticalRecyclerViewEdu;
     List<DataClass> dataListLocalOrg, dataListEdu;
-    MyAdapter adapterLocalOrg, adapterEdu;
+    MyAdapter adapterEdu;
+    LocalOrgUpperPartAdapter adapterLocalOrg;
     TextView localOrganizationTextView, educationalResourcesTextView;
     ImageView localOrganizationSearchImageView, educationalResourcesSearchImageView;
 
@@ -48,6 +51,8 @@ public class LocEduFragment extends Fragment {
         educationalResourcesTextView = rootView.findViewById(R.id.educationalResourcesTextView);
         localOrganizationSearchImageView = rootView.findViewById(R.id.localOrganizationSearchImageView);
         educationalResourcesSearchImageView = rootView.findViewById(R.id.educationalResourcesSearchImageView);
+
+        fab.setVisibility(View.GONE);
 
         GridLayoutManager horizontalLayoutManagerLocalOrg = new GridLayoutManager(getContext(), 1, LinearLayoutManager.HORIZONTAL, false);
         horizontalRecyclerViewLocalOrg.setLayoutManager(horizontalLayoutManagerLocalOrg);
@@ -64,7 +69,7 @@ public class LocEduFragment extends Fragment {
         dataListLocalOrg = new ArrayList<>();
         dataListEdu = new ArrayList<>();
 
-        adapterLocalOrg = new MyAdapter(getContext(), dataListLocalOrg);
+        adapterLocalOrg = new LocalOrgUpperPartAdapter(getContext(), dataListLocalOrg);
         adapterEdu = new MyAdapter(getContext(), dataListEdu);
 
         horizontalRecyclerViewLocalOrg.setAdapter(adapterLocalOrg);
@@ -111,6 +116,32 @@ public class LocEduFragment extends Fragment {
             }
         });
 
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            userRef = FirebaseDatabase.getInstance().getReference().child("Registered Users").child(currentUser.getUid());
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        String role = dataSnapshot.child("role").getValue(String.class);
+
+                        // Show/hide views based on the user's role
+                        switch (role) {
+                            case "Admin":
+                                fab.setVisibility(View.VISIBLE);
+                                break;
+
+                            default:
+                                break;
+                        }
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Handle database error if any
+                }
+            });
+        }
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

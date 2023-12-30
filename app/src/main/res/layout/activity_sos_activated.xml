@@ -10,7 +10,7 @@
         android:id="@+id/iv_police"
         android:layout_width="152dp"
         android:layout_height="172dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="88dp"
         android:src="@drawable/police"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -34,7 +34,7 @@
         android:id="@+id/tv_notice2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="412dp"
+        android:layout_marginBottom="400dp"
         android:text="@string/authorities_will_reach_out_to_you_shortly"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -121,21 +121,33 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
-        android:layout_marginBottom="168dp"
+        android:layout_marginBottom="150dp"
         android:text="@string/press_if_needed"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/callButton"
-        android:layout_width="78dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="90dp"
         android:layout_marginEnd="60dp"
         android:text="@string/call"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_userLoc"
         tools:ignore="TextSizeCheck" />
+
+    <TextView
+        android:id="@+id/sosTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:text="SOS"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/backButton"

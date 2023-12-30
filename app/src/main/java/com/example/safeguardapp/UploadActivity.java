@@ -12,6 +12,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -98,6 +99,23 @@ public class UploadActivity extends AppCompatActivity {
     }
 
     public void saveData(String path) {
+        if (uri == null) {
+            Toast.makeText(UploadActivity.this, "Please select an image", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (TextUtils.isEmpty(uploadTopic.getText().toString().trim())) {
+            uploadTopic.setError("Title is required");
+            uploadTopic.requestFocus();
+            return;
+        }
+
+        if (TextUtils.isEmpty(uploadDesc.getText().toString().trim())) {
+            uploadDesc.setError("Description is required");
+            uploadDesc.requestFocus();
+            return;
+        }
+
         StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(path +" Images")
                 .child(uri.getLastPathSegment());
 
@@ -129,13 +147,10 @@ public class UploadActivity extends AppCompatActivity {
         String title = uploadTopic.getText().toString();
         String desc = uploadDesc.getText().toString();
 
-        DataClass dataClass = new DataClass(title, desc, imageURL);
+        DataClass dataClass = new DataClass(title, desc, imageURL, path);
 
-        // We are changing the child from title to currentDate,
-        // because we will be updating title as well and it may affect child value.
         String currentDate = DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
 
-        // Appending the button identifier to the child value
         String childValue = currentDate + "_" + path;
 
         FirebaseDatabase.getInstance().getReference(path).child(childValue)

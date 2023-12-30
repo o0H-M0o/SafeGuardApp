@@ -98,18 +98,36 @@ public class EmergencyContactAdapter extends ArrayAdapter<EmergencyContactModel>
     }
 
     private void removeContact(EmergencyContactModel contact) {
-        String contactId = String.valueOf(contact.getId());
-        databaseReference.child(contactId).removeValue()
-                .addOnSuccessListener(aVoid -> {
-                    contacts.remove(contact);
-                    notifyDataSetChanged();
-                    Toast.makeText(context, "Contact removed!", Toast.LENGTH_SHORT).show();
-                })
-                .addOnFailureListener(e -> {
-                    // Handle failure
-                    Toast.makeText(context, "Failed to remove contact!", Toast.LENGTH_SHORT).show();
+        DatabaseReference contactsRef = FirebaseDatabase.getInstance().getReference("Registered Users")
+                .child(firebaseUser.getUid())
+                .child("EmergencyContacts");
+
+        contactsRef.orderByChild("phoneNumber").equalTo(contact.getPhoneNumber())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            String firebaseId = snapshot.getKey(); // Retrieve Firebase ID
+                            snapshot.getRef().removeValue()
+                                    .addOnSuccessListener(aVoid -> {
+                                        contacts.remove(contact);
+                                        notifyDataSetChanged();
+                                        Toast.makeText(context, "Contact removed!", Toast.LENGTH_SHORT).show();
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        // Handle failure
+                                        Toast.makeText(context, "Failed to remove contact!", Toast.LENGTH_SHORT).show();
+                                    });
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        // Handle errors
+                    }
                 });
     }
+
 
     public List<String> getContactNumbers() {
         return contactNumbers;

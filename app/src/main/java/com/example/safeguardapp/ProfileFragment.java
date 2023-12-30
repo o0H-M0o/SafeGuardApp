@@ -136,7 +136,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        //Just for DEMO
+        /*//Just for DEMO
         adminBtn = view.findViewById(R.id.adminBtn);
         authBtn = view.findViewById(R.id.authBtn);
 
@@ -172,16 +172,7 @@ public class ProfileFragment extends Fragment {
                     // Handle database error if any
                 }
             });
-        }
-
-        //Just for DEMO
-        authBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), OnlyForAuthActivity.class);
-                startActivity(intent);
-            }
-        });
+        }*/
 
         return view;
     }

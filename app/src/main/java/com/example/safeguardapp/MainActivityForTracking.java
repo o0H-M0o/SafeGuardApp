@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,6 +41,36 @@ public class MainActivityForTracking extends AppCompatActivity {
 
         // Set up the button click listener for choosing an incident
         Button addButton = findViewById(R.id.addButton);
+        addButton.setVisibility(View.GONE);
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Registered Users").child(currentUser.getUid());
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        String role = dataSnapshot.child("role").getValue(String.class);
+
+                        // Show/hide views based on the user's role
+                        switch (role) {
+                            case "Admin":
+                                addButton.setVisibility(View.VISIBLE);
+                                break;
+                            case "Authority":
+                                addButton.setVisibility(View.VISIBLE);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Handle database error if any
+                }
+            });
+        }
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

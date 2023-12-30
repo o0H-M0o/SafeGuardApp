@@ -298,7 +298,7 @@
     </LinearLayout>
 
 
-    <!--Just for DEMO-->
+    <!--&lt;!&ndash;Just for DEMO&ndash;&gt;
 
     <Button
         android:id="@+id/adminBtn"
@@ -314,6 +314,6 @@
         android:layout_height="wrap_content"
         android:text="To Auth Actvt"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -58,9 +58,6 @@
             android:name=".IncidentsReporting"
             android:exported="false" />
         <activity
-            android:name=".OnlyForAuthActivity"
-            android:exported="false" />
-        <activity
             android:name=".ForgotPasswordActivity"
             android:exported="false" />
         <activity
