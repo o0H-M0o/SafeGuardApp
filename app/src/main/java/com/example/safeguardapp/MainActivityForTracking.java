@@ -131,10 +131,14 @@ public class MainActivityForTracking extends AppCompatActivity {
                     List<Incidents> incidentList = new ArrayList<>();
 
                     for (DataSnapshot incidentSnapshot : snapshot.getChildren()) {
-                        String incidentId = incidentSnapshot.getKey(); // Get the unique incident ID
+                        String incidentId = incidentSnapshot.getKey();
                         String date = incidentSnapshot.child("date").getValue(String.class);
                         String time = incidentSnapshot.child("time").getValue(String.class);
-                        String status = incidentSnapshot.child("status").getValue(String.class);
+
+                        // Check if "status" exists in the snapshot
+                        String status = incidentSnapshot.hasChild("status")
+                                ? incidentSnapshot.child("status").getValue(String.class)
+                                : "Submitted";
 
                         List<IncidentsDetail> detailsList = new ArrayList<>();
                         for (DataSnapshot detailSnapshot : incidentSnapshot.child("detailsList").getChildren()) {
@@ -154,7 +158,7 @@ public class MainActivityForTracking extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(MainActivityForTracking.this, "Fail to get data.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivityForTracking.this, "Failed to get data.", Toast.LENGTH_SHORT).show();
             }
         });
     }

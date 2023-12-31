@@ -77,6 +77,7 @@ public class ChooseIncidentActivity extends AppCompatActivity {
         getIncidents();
     }
 
+
     private void setupRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -132,6 +133,13 @@ public class ChooseIncidentActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(ChooseIncidentActivity.this, "Fail to get data.", Toast.LENGTH_SHORT).show();
+            }
+        });
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle the back button press
+                finish();  // Finish the current activity (ChooseIncidentActivity)
             }
         });
     }

@@ -62,7 +62,7 @@ public class AdminUpdateActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Handle the back button press
-                onBackPressed();
+                finish();  // Finish the current activity (ChooseIncidentActivity)
             }
         });
     }
@@ -90,7 +90,6 @@ public class AdminUpdateActivity extends AppCompatActivity {
     }
 
 
-    @Override
     public void onBackPressed() {
         // Navigate back to ChooseIncidentActivity
         super.onBackPressed();
@@ -99,5 +98,3 @@ public class AdminUpdateActivity extends AppCompatActivity {
         finish();  // This will finish the current activity and prevent going back to AdminUpdateActivity
     }
 }
-
-

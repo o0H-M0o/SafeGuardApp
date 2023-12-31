@@ -48,6 +48,7 @@ public class ReportDetailsActivity extends AppCompatActivity {
 
         retrieveIncidentDetails(incidentId);
     }
+
     private void retrieveIncidentDetails(String incidentId) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Incidents").child(incidentId);
 
@@ -63,15 +64,9 @@ public class ReportDetailsActivity extends AppCompatActivity {
                     StringBuilder detailsBuilder = new StringBuilder(); // Use StringBuilder for efficient string concatenation
 
                     if (snapshot.child("detailsList").exists()) {
-                        boolean isFirstEntry = true;
                         for (DataSnapshot detailsSnapshot : snapshot.child("detailsList").getChildren()) {
-                            if (isFirstEntry) {
-                                isFirstEntry = false;
-                                continue;
-                            }
-
                             detailsBuilder.append("Update Time: ").append(detailsSnapshot.child("updateTime").getValue(String.class))
-                                    .append("\nStatus: ").append(detailsSnapshot.child("status").getValue(String.class))
+
                                     .append("\nDetails: ").append(detailsSnapshot.child("details").getValue(String.class)).append("\n\n");
                         }
                     }

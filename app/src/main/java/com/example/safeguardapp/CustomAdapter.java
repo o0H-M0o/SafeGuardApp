@@ -4,7 +4,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.text.Spannable;
+import android.text.Spanned;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
@@ -13,7 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-
+import android.text.style.StyleSpan;
+import android.text.style.UnderlineSpan;
 import java.util.List;
 
 import android.content.Context;
@@ -74,8 +75,13 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         }
 
         public void bind(Incidents incident) {
-            textTime.setText("Time: " + incident.getTime());
-            textDate.setText("Date: " + incident.getDate());
+            // Modify the text format
+            String submissionTime = "Submission Time: " + incident.getTime() + ", "+incident.getDate();
+
+
+            // Set the modified text
+            textTime.setText(submissionTime);
+
             statusTextView.setText("Status: " + incident.getStatus());
         }
     }
