@@ -1,6 +1,9 @@
 package com.example.safeguardapp;
 
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,7 +21,8 @@ import com.squareup.picasso.Picasso;
 
 public class ReportDetailsActivity extends AppCompatActivity {
 
-    private TextView tvType, tvDate, tvTime, tvLocation, tvDetails, tvUpdateTime;
+    private TextView tvType, tvDate, tvTime, tvLocation, tvDetails;
+    private ImageView reportingImg;
 
     private CardView cardViewIncidentInfo, cardViewStatusDetails;
     private ImageView ivBack;
@@ -36,6 +40,7 @@ public class ReportDetailsActivity extends AppCompatActivity {
         cardViewIncidentInfo = findViewById(R.id.cardViewIncidentInfo);
         cardViewStatusDetails = findViewById(R.id.cardViewStatusDetails);
         ivBack = findViewById(R.id.IVBack);
+        reportingImg = findViewById(R.id.reportingImg);
 
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,13 +66,22 @@ public class ReportDetailsActivity extends AppCompatActivity {
                     String time = snapshot.child("time").getValue(String.class);
                     String status = snapshot.child("status").getValue(String.class);
                     String location = snapshot.child("location").getValue(String.class);
+                    String photoData = snapshot.child("photoData").getValue(String.class);
                     StringBuilder detailsBuilder = new StringBuilder(); // Use StringBuilder for efficient string concatenation
+
+                    if (photoData != null && !photoData.isEmpty()) {
+                        Picasso.get().load(photoData).into(reportingImg);
+                    }
 
                     if (snapshot.child("detailsList").exists()) {
                         for (DataSnapshot detailsSnapshot : snapshot.child("detailsList").getChildren()) {
-                            detailsBuilder.append("Update Time: ").append(detailsSnapshot.child("updateTime").getValue(String.class))
+                            String updateTime = detailsSnapshot.child("updateTime").getValue(String.class);
+                            String details = detailsSnapshot.child("details").getValue(String.class);
 
-                                    .append("\nDetails: ").append(detailsSnapshot.child("details").getValue(String.class)).append("\n\n");
+                            String detailsText = "Update Time: " + updateTime + "\nDetails: " + details + "\n\n";
+
+                            // Append the details text to the StringBuilder
+                            detailsBuilder.append(detailsText);
                         }
                     }
 
@@ -88,9 +102,30 @@ public class ReportDetailsActivity extends AppCompatActivity {
                     } else {
                         cardViewStatusDetails.setVisibility(View.GONE);
                     }
-
+                    tvDetails.setText(detailsBuilder.toString().trim());
+                    applyCustomColorToTextView(tvDetails, "Update Time:", getResources().getColor(R.color.md_theme_light_primary));
                 }
             }
         });
     }
+    private void applyCustomColorToTextView(TextView textView, String targetText, int color) {
+        String fullText = textView.getText().toString();
+        Spannable spannable = new SpannableString(fullText);
+
+        int startIndex = fullText.indexOf(targetText);
+
+        while (startIndex >= 0) {
+            int endIndex = fullText.indexOf("\n", startIndex); // Find the end of the line
+            if (endIndex < 0) {
+                endIndex = fullText.length();
+            }
+            spannable.setSpan(new ForegroundColorSpan(color), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            startIndex = fullText.indexOf(targetText, endIndex);
+        }
+
+        textView.setText(spannable, TextView.BufferType.SPANNABLE);
+    }
+
+
 }

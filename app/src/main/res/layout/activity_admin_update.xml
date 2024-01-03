@@ -1,13 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- activity_admin_update.xml -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp"
-    tools:context=".AdminUpdateActivity">
+    android:layout_height="match_parent">
 
-    <!-- Title at the top -->
     <TextView
         android:id="@+id/titleTextView"
         android:layout_width="match_parent"
@@ -17,79 +13,111 @@
         android:textStyle="bold"
         android:padding="16dp"
         android:gravity="center"
-        android:textColor="@android:color/black"/>
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- ImageButton at the top left corner -->
     <ImageButton
         android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:padding="20dp"
+        android:contentDescription="back button"
         android:src="@drawable/baseline_arrow_back_ios_new_24"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_margin="16dp"
-        android:background="@android:color/transparent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Update Status TextView -->
-    <TextView
-        android:id="@+id/updateStatusTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Update Status"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_below="@id/backButton"
-        android:layout_marginTop="16dp"
-        android:textColor="@android:color/black"/>
-
-    <!-- Status Spinner -->
-    <Spinner
-        android:id="@+id/statusSpinner"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewUpdateProgress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/updateStatusTextView"
-        android:layout_marginTop="8dp"
-        android:entries="@array/status_options"
-        android:prompt="@string/select_status_prompt"/>
+        android:layout_margin="30dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleTextView">
 
-    <!-- Add Details TextView -->
-    <TextView
-        android:id="@+id/addDetailsTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add Details"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_below="@id/statusSpinner"
-        android:layout_marginTop="16dp"
-        android:textColor="@android:color/black"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/custom_edittext"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-    <!-- Details EditText -->
-    <EditText
-        android:id="@+id/detailsEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter details"
-        android:layout_below="@id/addDetailsTextView"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="16dp"/>
+            <TextView
+                android:id="@+id/updateStatusTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Update Status"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
+                android:textSize="20sp" />
 
-    <!-- Submit Button -->
-    <Button
-        android:id="@+id/submitButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/detailsEditText"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="18dp"
-        android:text="Save Changes"
-        android:textSize="18sp"/>
+            <RelativeLayout
+                android:id="@+id/relativeLayoutGender"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/custom_edittext">
 
+                <ImageView
+                    android:id="@+id/updateIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:src="@drawable/baseline_edit_24"
+                    app:tint="@color/md_theme_light_primary" />
 
+                <Spinner
+                    android:id="@+id/statusSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_toEndOf="@id/updateIcon"
+                    android:background="@android:color/transparent"
+                    android:entries="@array/status_options"
+                    android:prompt="@string/select_status_prompt"
+                    android:spinnerMode="dropdown" />
+            </RelativeLayout>
 
-</RelativeLayout>
+            <TextView
+                android:id="@+id/addDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Details"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="25dp"
+                android:textSize="20sp" />
 
+            <EditText
+                android:id="@+id/detailsEditText"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/custom_edittext"
+                android:drawableLeft="@drawable/baseline_description_24"
+                android:drawablePadding="8dp"
+                android:drawableTint="@color/md_theme_light_primary"
+                android:hint="Enter details"
+                android:padding="20dp"
+                android:textColor="@color/black" />
 
+            <Button
+                android:id="@+id/submitButton"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="20dp"
+                android:text="Save Changes"
+                android:textSize="18dp"
+                app:cornerRadius="20dp" />
 
-
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -39,7 +40,8 @@ import java.util.Locale;
 
 public class UpdateProfileActivity extends AppCompatActivity {
 
-    private Button updateProfileBtn, cancelUpdateBtn;
+    private Button updateProfileBtn;
+    private ImageButton cancelUpdateBtn;
     private ImageView uploadEditPic;
     private TextView TVUploadProPic;
     private EditText editProfileUsername, editContactNum, editDoB;

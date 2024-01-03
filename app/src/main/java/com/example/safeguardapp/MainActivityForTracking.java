@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -29,6 +30,7 @@ public class MainActivityForTracking extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private RecyclerView recyclerView;
     private CustomAdapter adapter;
+    private FloatingActionButton updateButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +41,8 @@ public class MainActivityForTracking extends AppCompatActivity {
         databaseReference = firebaseDatabase.getReference("Incidents");
         recyclerView = findViewById(R.id.recyclerView);
 
-        // Set up the button click listener for choosing an incident
-        Button addButton = findViewById(R.id.addButton);
-        addButton.setVisibility(View.GONE);
+        updateButton = findViewById(R.id.updateButton);
+        updateButton.setVisibility(View.GONE);
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
@@ -55,10 +56,10 @@ public class MainActivityForTracking extends AppCompatActivity {
                         // Show/hide views based on the user's role
                         switch (role) {
                             case "Admin":
-                                addButton.setVisibility(View.VISIBLE);
+                                updateButton.setVisibility(View.VISIBLE);
                                 break;
                             case "Authority":
-                                addButton.setVisibility(View.VISIBLE);
+                                updateButton.setVisibility(View.VISIBLE);
                                 break;
                             default:
                                 break;
@@ -71,7 +72,7 @@ public class MainActivityForTracking extends AppCompatActivity {
                 }
             });
         }
-        addButton.setOnClickListener(new View.OnClickListener() {
+        updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Open ChooseIncidentActivity to choose the incident to update
@@ -134,6 +135,8 @@ public class MainActivityForTracking extends AppCompatActivity {
                         String incidentId = incidentSnapshot.getKey();
                         String date = incidentSnapshot.child("date").getValue(String.class);
                         String time = incidentSnapshot.child("time").getValue(String.class);
+                        String photoData = incidentSnapshot.child("photoData").getValue(String.class);
+                        String type = incidentSnapshot.child("type").getValue(String.class);
 
                         // Check if "status" exists in the snapshot
                         String status = incidentSnapshot.hasChild("status")
@@ -147,7 +150,7 @@ public class MainActivityForTracking extends AppCompatActivity {
                             detailsList.add(new IncidentsDetail(details, updateTime));
                         }
 
-                        incidentList.add(new Incidents(incidentId, date, time, status, detailsList));
+                        incidentList.add(new Incidents(incidentId, date, time, status, type, photoData, detailsList));
                     }
 
                     adapter.setIncidentList(incidentList);

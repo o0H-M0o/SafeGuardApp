@@ -2,6 +2,7 @@ package com.example.safeguardapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +26,7 @@ public class AdminUpdateActivity extends AppCompatActivity {
 
     // Views
     private EditText detailsEditText;
+    private ImageButton backButton;
     private Spinner statusSpinner;
 
     @Override
@@ -42,28 +44,19 @@ public class AdminUpdateActivity extends AppCompatActivity {
         // Receive incident ID from the intent
         String incidentId = getIntent().getStringExtra("incidentId");
 
-        // Set up a button click listener for submitting updates
         Button submitButton = findViewById(R.id.submitButton);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 updateReport(incidentId);
-
-                // After updating, navigate back to ChooseIncidentActivity
-                Intent intent = new Intent(AdminUpdateActivity.this, ChooseIncidentActivity.class);
-                startActivity(intent);
-                finish();  // This will finish the current activity and prevent going back to AdminUpdateActivity
             }
         });
 
         // Set up a click listener for the Back button
-        ImageButton backButton = findViewById(R.id.backButton);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Handle the back button press
-                finish();  // Finish the current activity (ChooseIncidentActivity)
-            }
+        backButton = findViewById(R.id.backButton);
+
+        backButton.setOnClickListener(v -> {
+            onBackPressed();
         });
     }
 
@@ -72,29 +65,32 @@ public class AdminUpdateActivity extends AppCompatActivity {
         String selectedStatus = statusSpinner.getSelectedItem().toString();
         String details = detailsEditText.getText().toString();
 
-        // Get the current date and time
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-        String currentTime = sdf.format(new Date());
+        if(selectedStatus.equals("Choose a status")){
+            Toast.makeText(getApplicationContext(),"Please choose a status", Toast.LENGTH_SHORT).show();
+        }
+        else if (TextUtils.isEmpty(details)){
+            Toast.makeText(getApplicationContext(),"Please add some details.", Toast.LENGTH_SHORT).show();
+            detailsEditText.setError("Details is required");
+            detailsEditText.requestFocus();
+        } else {
+            // Get the current date and time
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+            String currentTime = sdf.format(new Date());
 
-        // Update the "status" field in Firebase
-        incidentsRef.child(incidentId).child("status").setValue(selectedStatus);
+            // Update the "status" field in Firebase
+            incidentsRef.child(incidentId).child("status").setValue(selectedStatus);
 
-        // Create a new IncidentDetail object
-        IncidentsDetail incidentDetail = new IncidentsDetail(details, currentTime);
+            // Create a new IncidentDetail object
+            IncidentsDetail incidentDetail = new IncidentsDetail(details, currentTime);
 
-        // Add the new detail to the detailsList in Firebase
-        incidentsRef.child(incidentId).child("detailsList").push().setValue(incidentDetail);
+            // Add the new detail to the detailsList in Firebase
+            incidentsRef.child(incidentId).child("detailsList").push().setValue(incidentDetail);
 
-        // Display a success message or perform additional actions as needed
-        Toast.makeText(this, "Report updated successfully", Toast.LENGTH_SHORT).show();
+            // Display a success message or perform additional actions as needed
+            Toast.makeText(this, "Report updated successfully", Toast.LENGTH_SHORT).show();
+
+            onBackPressed();
+        }
     }
 
-
-    public void onBackPressed() {
-        // Navigate back to ChooseIncidentActivity
-        super.onBackPressed();
-        Intent intent = new Intent(AdminUpdateActivity.this, ChooseIncidentActivity.class);
-        startActivity(intent);
-        finish();  // This will finish the current activity and prevent going back to AdminUpdateActivity
-    }
 }

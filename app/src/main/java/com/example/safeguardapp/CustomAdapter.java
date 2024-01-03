@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
@@ -26,6 +27,9 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 // CustomAdapter.java
@@ -65,24 +69,27 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView textTime;
         TextView textDate;
+        TextView textType;
         TextView statusTextView;
+        ImageView imageIcon;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             textTime = itemView.findViewById(R.id.textTime);
             textDate = itemView.findViewById(R.id.textDate);
             statusTextView = itemView.findViewById(R.id.statusTextView);
+            textType = itemView.findViewById(R.id.textType);
+            imageIcon = itemView.findViewById(R.id.imageIcon);
         }
 
         public void bind(Incidents incident) {
-            // Modify the text format
-            String submissionTime = "Submission Time: " + incident.getTime() + ", "+incident.getDate();
-
-
-            // Set the modified text
-            textTime.setText(submissionTime);
-
+            textTime.setText("Time: " + incident.getTime());
+            textDate.setText("Date: " + incident.getDate());
             statusTextView.setText("Status: " + incident.getStatus());
+            textType.setText("Type: " + incident.getType()); // Update to set incident type
+
+            // Load image using Picasso or Glide into ImageView
+            Picasso.get().load(incident.getPhotoData()).into(imageIcon);
         }
     }
 }

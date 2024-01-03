@@ -47,8 +47,9 @@
     <string name="locating">Locating…</string>
     <string name="select_status_prompt">Select Status</string>
     <string-array name="status_options">
+        <item>Choose a status</item>
         <item>Submitted</item>
-        <item>Received by Authority</item>
+        <item>In Progress</item>
         <item>Settled</item>
     </string-array>
 

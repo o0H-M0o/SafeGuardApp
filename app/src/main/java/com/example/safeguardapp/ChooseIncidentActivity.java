@@ -94,6 +94,8 @@ public class ChooseIncidentActivity extends AppCompatActivity {
                         String date = incidentSnapshot.child("date").getValue(String.class);
                         String time = incidentSnapshot.child("time").getValue(String.class);
                         String status = incidentSnapshot.child("status").getValue(String.class);
+                        String photoData = incidentSnapshot.child("photoData").getValue(String.class);
+                        String type = incidentSnapshot.child("type").getValue(String.class);
 
                         List<IncidentsDetail> detailsList = new ArrayList<>();
                         for (DataSnapshot detailSnapshot : incidentSnapshot.child("detailsList").getChildren()) {
@@ -102,7 +104,7 @@ public class ChooseIncidentActivity extends AppCompatActivity {
                             detailsList.add(new IncidentsDetail(details, updateTime));
                         }
 
-                        incidentList.add(new Incidents(incidentId, date, time, status, detailsList));
+                        incidentList.add(new Incidents(incidentId, date, time, status, type, photoData, detailsList));
                     }
 
                     CustomAdapter adapter = new CustomAdapter(ChooseIncidentActivity.this, incidentList);

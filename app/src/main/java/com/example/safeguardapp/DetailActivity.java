@@ -1,5 +1,6 @@
 package com.example.safeguardapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,17 +12,25 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 public class DetailActivity extends AppCompatActivity {
 
+    DatabaseReference userRef;
     TextView detailDesc, detailTitle;
     ImageView detailImage;
     FloatingActionButton deleteButton, editButton;
+    FloatingActionMenu fabEditDelete;
     String key = "";
     String imageUrl = "";
     String path = "";
@@ -38,6 +47,36 @@ public class DetailActivity extends AppCompatActivity {
         deleteButton = findViewById(R.id.deleteButton);
         editButton = findViewById(R.id.editButton);
         ivBack = findViewById(R.id.IVBack);
+        fabEditDelete = findViewById(R.id.fabEditDelete);
+
+        fabEditDelete.setVisibility(View.GONE);
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            userRef = FirebaseDatabase.getInstance().getReference().child("Registered Users").child(currentUser.getUid());
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        String role = dataSnapshot.child("role").getValue(String.class);
+
+                        // Show/hide views based on the user's role
+                        switch (role) {
+                            case "Admin":
+                                fabEditDelete.setVisibility(View.VISIBLE);
+                                break;
+
+                            default:
+                                break;
+                        }
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Handle database error if any
+                }
+            });
+        }
 
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
