@@ -46,6 +46,11 @@
     <string name="direct_call_to_police">Direct Call to Police</string>
     <string name="locating">Locating…</string>
     <string name="select_status_prompt">Select Status</string>
+    <string name="sos_button_activated">SOS Button Activated</string>
+    <string name="todo">TODO</string>
+    <string name="view">View</string>
+    <string name="cancel">Cancel</string>
+    <string name="sos">SOS</string>
     <string-array name="status_options">
         <item>Choose a status</item>
         <item>Submitted</item>

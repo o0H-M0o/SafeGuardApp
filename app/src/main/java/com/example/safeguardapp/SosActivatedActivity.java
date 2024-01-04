@@ -36,6 +36,7 @@ public class SosActivatedActivity extends AppCompatActivity implements LocationL
     TextView tvUserLocation;
     ImageButton backBtn;
     Button callBtn;
+    Button cancelSosBtn;
     FusedLocationProviderClient fusedLocationProviderClient;
     LocationManager locationManager;
 
@@ -88,6 +89,16 @@ public class SosActivatedActivity extends AppCompatActivity implements LocationL
         });
 
 
+        //cancel SOS
+        cancelSosBtn = findViewById(R.id.cancelSosBtn);
+        cancelSosBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deactivateSOS();
+            }
+        });
+
+
     }
 
     @SuppressLint("MissingPermission")
@@ -125,14 +136,21 @@ public class SosActivatedActivity extends AppCompatActivity implements LocationL
 
     private void makePhoneCall(){
         Intent intent = new Intent(Intent.ACTION_CALL);
-        intent.setData(Uri.parse("tel:+60194124993"));
+        intent.setData(Uri.parse("tel:+60194124993"));  //sample phone number to demonstrate calling feature
         startActivity(intent);
     }
 
 
     private void backToHome(){
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        setResult(RESULT_OK);
+        finish();
     }
+
+    private void deactivateSOS() {
+        setResult(RESULT_CANCELED);                 // Set the result to indicate deactivation
+        finish();                                   // Close the SOSActivatedActivity
+    }
+
+
 
 }

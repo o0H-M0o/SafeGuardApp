@@ -7,10 +7,64 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+<!--    <include layout="@layout/bottom_sheet_layout" />-->
+
     <FrameLayout
+        android:id="@+id/frame_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/frame_layout"/>
+        android:elevation="0dp" >
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:id="@+id/bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@drawable/rounded"
+        android:elevation="0dp"
+        android:orientation="vertical"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+
+        <TextView
+            android:id="@+id/TV_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/view"
+            android:textColor="@color/md_theme_dark_onError"
+            android:translationX="350dp"
+            android:translationY="120dp" />
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@string/todo"
+            android:scaleType="centerCrop"
+            android:src="@drawable/round_remove_24"
+            tools:ignore="ImageContrastCheck" />
+
+        <TextView
+            android:id="@+id/TVSosActivatedTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sos_button_activated"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:translationX="50dp"
+            android:translationY="10dp" />
+
+        <TextView
+            android:id="@+id/TVSosActivatedContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/authorities_will_reach_out_to_you_shortly"
+            android:textSize="16sp"
+            android:translationX="50dp"
+            android:translationY="20dp" />
+
+    </LinearLayout>
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
@@ -53,6 +107,9 @@
         app:borderWidth="3dp"
         app:elevation="0dp"
         android:contentDescription="@string/sosbtn" />
+
+
+
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
