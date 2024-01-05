@@ -110,8 +110,4 @@
         app:elevation="0dp"
         android:contentDescription="@string/sosbtn" />
 
-
-
-
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

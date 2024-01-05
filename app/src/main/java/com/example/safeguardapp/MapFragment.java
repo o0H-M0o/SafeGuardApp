@@ -1,17 +1,21 @@
 package com.example.safeguardapp;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
+import android.os.Build;
 import android.os.Bundle;
 import android.Manifest;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 
 import android.telephony.SmsManager;
@@ -23,6 +27,7 @@ import android.location.Location;
 import android.widget.*;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.GeofencingClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -47,6 +52,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
+
     private DatabaseReference databaseReference;
     private DatabaseReference userContactsReference;
     private FirebaseAuth firebaseAuth;
@@ -59,7 +65,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private EmergencyContactAdapter contactAdapter;
     Location currentLocation;
     FusedLocationProviderClient fusedLocationProviderClient;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -96,8 +101,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                         .show();
             }
         });
-
-
 
         mapSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -175,6 +178,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             }
         });
     }
+
     private void addHotspotMarkers() {
         // Fetch hotspots from Firebase
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -185,6 +189,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     if (location != null) {
                         // Convert the hotspot address to LatLng
                         LatLng hotspotLatLng = getLocationFromAddress(requireContext(), location);
+                        isNearDangerousLocation(hotspotLatLng);
                         if (hotspotLatLng != null) {
                             // Add a marker for each hotspot
                             Marker marker = myMap.addMarker(new MarkerOptions()
@@ -253,7 +258,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     // Convert address to LatLng
-    private LatLng getLocationFromAddress(Context context, String strAddress) {
+    public LatLng getLocationFromAddress(Context context, String strAddress) {
         Geocoder geocoder = new Geocoder(context, Locale.getDefault());
         List<Address> addressList;
 
@@ -327,5 +332,60 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 Toast.makeText(requireActivity(), "Location permission is denied, please allow the permission", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private void isNearDangerousLocation(LatLng hotspotLocation){
+        double dangerRadius = 1000; // 1 km
+        LatLng myLocation = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+
+        if (distanceBetween(myLocation, hotspotLocation) < dangerRadius) {
+            makeNotification(); // User is near a hotspot location
+        }
+    }
+
+    private double distanceBetween(LatLng point1, LatLng point2) {
+        // Custom method to calculate distance between two LatLng points
+        double lat1 = point1.latitude;
+        double lon1 = point1.longitude;
+        double lat2 = point2.latitude;
+        double lon2 = point2.longitude;
+
+        double theta = lon1 - lon2;
+        double dist = Math.sin(Math.toRadians(lat1)) * Math.sin(Math.toRadians(lat2)) +
+                Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) * Math.cos(Math.toRadians(theta));
+        dist = Math.acos(dist);
+        dist = Math.toDegrees(dist);
+        dist = dist * 60 * 1.1515 * 1.609344 * 1000; // Convert to meters
+
+        return dist;
+    }
+
+    public void makeNotification() {
+        String chanelID = "CHANNEL_ID_NOTIFICATION";
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(requireContext(), chanelID);
+        builder.setSmallIcon(R.drawable.hotspot_icon)
+                .setContentTitle("WARNING!")
+                .setContentText("A violence hotspot is nearby")
+                .setAutoCancel(true)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        Intent intent = new Intent(requireContext(), SafetyAlertNotification.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("data", "Data to be passed here");
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(requireContext(), 0, intent, PendingIntent.FLAG_MUTABLE);
+        builder.setContentIntent(pendingIntent);
+        NotificationManager notificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationChannel notificationChannel = notificationManager.getNotificationChannel(chanelID);
+            if (notificationChannel == null) {
+                int importance = NotificationManager.IMPORTANCE_HIGH;
+                notificationChannel = new NotificationChannel(chanelID, "Some description", importance);
+                notificationChannel.enableVibration(true);
+                notificationManager.createNotificationChannel(notificationChannel);
+            }
+        }
+        notificationManager.notify(0, builder.build());
     }
 }

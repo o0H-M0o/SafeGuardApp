@@ -3,12 +3,17 @@ package com.example.safeguardapp;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -24,8 +29,6 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton fab;
     LinearLayout bottomSheet;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,50 +37,43 @@ public class MainActivity extends AppCompatActivity {
         bottomSheet = findViewById(R.id.bottom_sheet);
         bottomSheet.setVisibility(View.GONE);
 
-
-        replaceFragment(new MapFragment());
-        binding.bottomNavigationView.setBackground(null);
-        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
-            int itemId = item.getItemId();
-            if (itemId == R.id.map) {
-                replaceFragment(new MapFragment());
-            } else if (itemId == R.id.report) {
-                replaceFragment(new ReportFragment());
-            } else if (itemId == R.id.moreInfo) {
-                replaceFragment(new LocEduFragment());
-            } else if (itemId == R.id.profile) {
-                replaceFragment(new ProfileFragment());
-            }
-            return true;
-        });
-
+            replaceFragment(new MapFragment());
+            binding.bottomNavigationView.setBackground(null);
+            binding.bottomNavigationView.setOnItemSelectedListener(item -> {
+                int itemId = item.getItemId();
+                if (itemId == R.id.map) {
+                    replaceFragment(new MapFragment());
+                } else if (itemId == R.id.report) {
+                    replaceFragment(new ReportFragment());
+                } else if (itemId == R.id.moreInfo) {
+                    replaceFragment(new LocEduFragment());
+                } else if (itemId == R.id.profile) {
+                    replaceFragment(new ProfileFragment());
+                }
+                return true;
+            });
 
 
-        // Implementation of SOS button
-        fab = findViewById(R.id.btn_fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "press longer to activate SOS", Toast.LENGTH_SHORT).show();
-            }
-        });
+            // Implementation of SOS button
+            fab = findViewById(R.id.btn_fab);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(MainActivity.this, "press longer to activate SOS", Toast.LENGTH_SHORT).show();
+                }
+            });
 
-        fab.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                openSOSActivated();
-                return false;
-            }
-        });
-
+            fab.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    openSOSActivated();
+                    return false;
+                }
+            });
+        }
 
         //Check flag from SOSActivatedActivity
 //        fromSosActivated = getIntent().getBooleanExtra("FROM_SOS_ACTIVATED", false);
-
-
-
-    }
-
 
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -90,8 +86,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SosActivatedActivity.class);
         startActivityForResult(intent,1);
     }
-
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -119,10 +113,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-
-
-
     private void onBackPressedFromActivity() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         if (fragmentManager.getBackStackEntryCount() > 0) {
@@ -131,4 +121,5 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed(); // If no fragments in the back stack, perform default back action
         }
     }
+
 }
