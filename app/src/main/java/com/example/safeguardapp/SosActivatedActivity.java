@@ -136,7 +136,7 @@ public class SosActivatedActivity extends AppCompatActivity implements LocationL
 
     private void makePhoneCall(){
         Intent intent = new Intent(Intent.ACTION_CALL);
-        intent.setData(Uri.parse("tel:+60194124993"));  //sample phone number to demonstrate calling feature
+        intent.setData(Uri.parse("tel:999"));  //sample phone number to demonstrate calling feature
         startActivity(intent);
     }
 

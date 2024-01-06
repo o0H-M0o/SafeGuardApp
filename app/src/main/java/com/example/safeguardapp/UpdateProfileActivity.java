@@ -103,17 +103,14 @@ public class UpdateProfileActivity extends AppCompatActivity {
                     TVUploadProPic.setTextColor(Color.RED);
                     progressBar.setVisibility(View.GONE);
                 } else if (TextUtils.isEmpty(username)) {
-                    Toast.makeText(getApplicationContext(), "Please enter your username", Toast.LENGTH_SHORT).show();
                     editProfileUsername.setError("Username is required");
                     editProfileUsername.requestFocus();
                     progressBar.setVisibility(View.GONE);
                 } else if (TextUtils.isEmpty(contactNum)) {
-                    Toast.makeText(getApplicationContext(), "Please enter your contact number", Toast.LENGTH_SHORT).show();
                     editContactNum.setError("Contact number is required");
                     editContactNum.requestFocus();
                     progressBar.setVisibility(View.GONE);
                 } else if (TextUtils.isEmpty(dob)) {
-                    Toast.makeText(getApplicationContext(), "Please choose your date of birth", Toast.LENGTH_SHORT).show();
                     editDoB.setError("Date of birth is required");
                     editDoB.requestFocus();
                     progressBar.setVisibility(View.GONE);

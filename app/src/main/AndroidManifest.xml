@@ -104,18 +104,22 @@
 
         <activity
             android:name=".MainActivityForTracking"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".ChooseIncidentActivity" />
-        <activity android:name=".AdminUpdateActivity" />
-        <activity android:name=".Incidents" />
-        <activity android:name=".IncidentsDetail" />
-        <activity android:name=".CustomAdapter" />
+            android:exported="false" />
+        <activity
+            android:name=".ChooseIncidentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminUpdateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Incidents"
+            android:exported="false" />
+        <activity
+            android:name=".IncidentsDetail"
+            android:exported="false" />
+        <activity
+            android:name=".CustomAdapter"
+            android:exported="false" />
     </application>
 
 </manifest>

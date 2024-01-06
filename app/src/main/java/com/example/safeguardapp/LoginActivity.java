@@ -90,7 +90,6 @@ public class LoginActivity extends AppCompatActivity {
                 String password = loginPassword.getText().toString();
 
                 if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(LoginActivity.this, "Please enter your email", Toast.LENGTH_SHORT).show();
                     loginEmail.setError("Email is required");
                     loginEmail.requestFocus();
                     progressBar.setVisibility(View.GONE);
@@ -99,7 +98,6 @@ public class LoginActivity extends AppCompatActivity {
                     loginEmail.requestFocus();
                     progressBar.setVisibility(View.GONE);
                 } else if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(LoginActivity.this, "Please enter your password", Toast.LENGTH_SHORT).show();
                     loginPassword.setError("Password is required");
                     loginPassword.requestFocus();
                     progressBar.setVisibility(View.GONE);

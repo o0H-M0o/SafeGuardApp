@@ -69,7 +69,6 @@ public class AdminUpdateActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"Please choose a status", Toast.LENGTH_SHORT).show();
         }
         else if (TextUtils.isEmpty(details)){
-            Toast.makeText(getApplicationContext(),"Please add some details.", Toast.LENGTH_SHORT).show();
             detailsEditText.setError("Details is required");
             detailsEditText.requestFocus();
         } else {

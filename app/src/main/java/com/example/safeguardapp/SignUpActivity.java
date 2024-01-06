@@ -74,12 +74,10 @@ public class SignUpActivity extends AppCompatActivity {
                 confirmPassword = editConfirmPassword.getText().toString();
 
                 if (TextUtils.isEmpty(username)) {
-                    Toast.makeText(SignUpActivity.this, "Please enter your username", Toast.LENGTH_SHORT).show();
                     editUsername.setError("Username is required");
                     editUsername.requestFocus();
                     progressBar.setVisibility(View.GONE);
                 } else if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(SignUpActivity.this, "Please enter your email", Toast.LENGTH_SHORT).show();
                     editEmail.setError("Email is required");
                     editEmail.requestFocus();
                     progressBar.setVisibility(View.GONE);
@@ -88,7 +86,6 @@ public class SignUpActivity extends AppCompatActivity {
                     editEmail.requestFocus();
                     progressBar.setVisibility(View.GONE);
                 } else if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(SignUpActivity.this, "Please enter your password", Toast.LENGTH_SHORT).show();
                     editPassword.setError("Password is required");
                     editPassword.requestFocus();
                     progressBar.setVisibility(View.GONE);
@@ -97,7 +94,6 @@ public class SignUpActivity extends AppCompatActivity {
                     editPassword.requestFocus();
                     progressBar.setVisibility(View.GONE);
                 } else if (TextUtils.isEmpty(confirmPassword)) {
-                    Toast.makeText(SignUpActivity.this, "Please confirm your password", Toast.LENGTH_SHORT).show();
                     editConfirmPassword.setError("Password confirmation is required");
                     editConfirmPassword.requestFocus();
                     progressBar.setVisibility(View.GONE);
